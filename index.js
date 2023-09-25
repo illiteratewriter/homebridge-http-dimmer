@@ -52,7 +52,7 @@ class DimmerAccessory {
 
   setBrightness (value, callback) {
     this.brightness = value
-    this.log('setting brightness ', value)
+    this.log('Setting brightness:', value)
     request(`${this.setBrightnessUrl}${value}`, (err, resp, body) => {
       callback(null, value)
     })
