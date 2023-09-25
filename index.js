@@ -22,6 +22,8 @@ class DimmerAccessory {
     this.setBrightnessUrl = config.setBrightnessUrl
     this.getBrightnessUrl = config.getBrightnessUrl
     this.service = new Service.Lightbulb(this.config.name)
+    this.pollingInterval = parseInt(config.pollingInterval || 5)
+    this.pollingTimeout = null
   }
 
   getServices () {
@@ -38,7 +40,20 @@ class DimmerAccessory {
       .on('get', this.getBrightness.bind(this))
       .on('set', this.setBrightness.bind(this));
 
+    this.statePolling()
+
     return [informationService, this.service]
+  }
+
+  statePolling () {
+    clearTimeout(this.pollingTimeOut)
+    this.service.getCharacteristic(Characteristic.On).getValue()
+    this.service.getCharacteristic(Characteristic.Brightness).getValue()
+
+    this.pollingTimeOut = setTimeout(
+      this.statePolling.bind(this),
+      this.pollingInterval * 1000
+    )
   }
 
   getBrightness (callback) {
