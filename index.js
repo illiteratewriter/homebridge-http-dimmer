@@ -76,7 +76,6 @@ class DimmerAccessory {
       if(body == 0){
         this.isOn = false
       } else {
-        this.log()
         this.isOn = true
       }
       callback(null, this.isOn)
