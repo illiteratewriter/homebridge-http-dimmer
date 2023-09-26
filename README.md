@@ -13,6 +13,7 @@ Example plugin configuration:
     "onUrl": "http://10.0.0.9/dimmerOn",
     "offUrl": "http://10.0.0.9/dimmerOff",
     "statusUrl": "http://10.0.0.9/getDimmerState",
+    "statusPollingInterval":5,
     "setBrightnessUrl": "http://10.0.0.9/setBrightness?brightness=",
     "getBrightnessUrl":"http://10.0.0.9/getBrightness"
 }
@@ -25,6 +26,7 @@ name 		: <string> name of the accessory. This is displayed on HomeKit
 onUrl 		: <string> url to turn on the accessory
 offUrl		: <string> url to turn off the accessory
 statusUrl	: <string> returns the status of the accessory (return 1 as body if ON and 0 if OFF)
+statusPollingInterval	: <integer> number of seconds to poll status
 setBrightnessUrl : <string> url, to whose end brightness will be appended
 getBrightnessURl : <string> url which will return the value of brightness in the body
 ```
