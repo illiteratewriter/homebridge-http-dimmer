@@ -21,7 +21,13 @@ class DimmerAccessory {
     this.offUrl = config.offUrl
     this.setBrightnessUrl = config.setBrightnessUrl
     this.getBrightnessUrl = config.getBrightnessUrl
-    this.service = new Service.Lightbulb(this.config.name)
+    this.type = config.type || 'light'
+    const serviceMap = {
+      light: { service: Service.Lightbulb, characteristic: Characteristic.Brightness },
+      fan:   { service: Service.Fan,       characteristic: Characteristic.RotationSpeed },
+    }
+    this.serviceConfig = serviceMap[this.type] || serviceMap.light
+    this.service = new this.serviceConfig.service(this.config.name)
   }
 
   getServices () {
@@ -34,7 +40,7 @@ class DimmerAccessory {
       .on('get', this.getOnCharacteristicHandler.bind(this))
       .on('set', this.setOnCharacteristicHandler.bind(this))
 
-    this.service.getCharacteristic(Characteristic.Brightness)
+    this.service.getCharacteristic(this.serviceConfig.characteristic)
       .on('get', this.getBrightness.bind(this))
       .on('set', this.setBrightness.bind(this));
 

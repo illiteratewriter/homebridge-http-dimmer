@@ -1,6 +1,6 @@
 {
   "name": "homebridge-http-dimmer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "http dimmer for homebridge",
   "main": "index.js",
   "scripts": {
